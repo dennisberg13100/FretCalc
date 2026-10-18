@@ -13,6 +13,12 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="results"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
     </>
   )

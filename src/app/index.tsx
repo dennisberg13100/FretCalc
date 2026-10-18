@@ -2,16 +2,35 @@ import { Text, TextInput, View, Pressable } from "react-native"
 import { globalStyles } from "../../styles/global"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useState } from "react"
+import { router } from "expo-router"
 
 export default function Index() {
 
   const [ scaleLenght, setScaleLangth ] = useState<string>()
   const [ fretCount, setFretCount ] = useState<string>()
   const [ precision, setPrecision ] = useState(0.1)
-  const precisionOptions = [0.5, 0.1, 0.01]
+  const [ incompleteFormAlert, setInclompleteFomrAlert ] = useState<boolean>(false)
+  const precisionOptions = [0.5, 0.25, 0.1, 0.01]
+
+function handleCalculate() {
+  if (scaleLenght && fretCount) {
+    setInclompleteFomrAlert(false)
+    router.push({
+      pathname: "./results",
+      params: {
+        scaleLenght: scaleLenght,
+        fretCount: fretCount,
+        precision: precision.toString(),
+      },
+    })
+  } else {
+    setInclompleteFomrAlert(true)
+  }
+  
+}
 
   return (
-    <SafeAreaView style = {globalStyles.conatine}>
+    <SafeAreaView style = {globalStyles.container}>
       <Text style = {globalStyles.title}>
         FretCalc
       </Text>
@@ -19,6 +38,14 @@ export default function Index() {
         Claculadora de espaçamento dos trastes
       </Text>
 
+      {incompleteFormAlert && (
+        <View style = {globalStyles.errorContainer}>
+          <Text style = {globalStyles.errorText}>
+            Preencha todos os campos para podermos realizar os cálculos.
+          </Text>
+        </View>
+      )}
+      
       <Text style = {globalStyles.label}>
         Comprimento da escala (mm)
       </Text>
@@ -63,7 +90,7 @@ export default function Index() {
 
       <Pressable
         style = {globalStyles.button}
-        onPress = {() => {}}
+        onPress = {handleCalculate}
       >
         <Text style = {globalStyles.buttonText}>
           Calcular

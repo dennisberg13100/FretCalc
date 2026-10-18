@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native"
 import { colors } from "./colors"
 
 export const globalStyles = StyleSheet.create({
-    conatine: {
+    container: {
         flex: 1, 
         alignItems: "center",
         padding: 20,
@@ -17,6 +17,21 @@ export const globalStyles = StyleSheet.create({
         marginTop: 8,
         textAlign: "center",
     },
+    errorContainer: {
+        marginTop: 24, 
+        backgroundColor: colors.errorBg,
+        padding: 5,
+        borderWidth: 2,
+        borderColor: colors.error,
+        borderRadius: 8
+
+    },
+    errorText: {
+        fontSize: 14, 
+        textAlign: "center", 
+        color: colors.error
+
+    }, 
     label: {
         fontSize: 16,
         alignSelf: "flex-start",

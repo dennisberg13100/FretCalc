@@ -9,6 +9,7 @@ export const colors = {
   textSecondary: "#64748B",
 
   border: "#C8D4E6",
-  error: "#DC2626",
+  error: "#C65D5D",
+  errorBg: "#FDECEC",
   success: "#16A34A",
 };
