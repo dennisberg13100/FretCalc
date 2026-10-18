@@ -1,4 +1,4 @@
-interface FretPosition {
+export interface FretPosition {
     absolute: number
     relative: number
 }

@@ -1,7 +1,8 @@
 
+import { scale25in, scale650mm } from "../fixtures/fretPositions";
 import {
-  calculateFretAbsolutePosition,
   calculateAllFretPositions,
+  calculateFretAbsolutePosition,
 } from "../fretCalculator";
 
 describe("calculateFretAbsolutePosition", () => {
@@ -32,5 +33,43 @@ describe("calculateAllFretAbsolutePositions", () => {
       positions[1].absolute - positions[0].absolute,
       10
     );
+  });
+});
+
+describe("calculateAllFretPositions", () => {
+  it("calculates all positions for a 650 mm scale", () => {
+    const positions = calculateAllFretPositions(650, 22);
+
+    expect(positions).toHaveLength(scale650mm.length);
+
+    scale650mm.forEach((expected, index) => {
+      expect(positions[index].absolute).toBeCloseTo(
+        expected.absolute,
+        5
+      );
+
+      expect(positions[index].relative).toBeCloseTo(
+        expected.relative,
+        5
+      );
+    });
+  });
+
+  it("calculates all positions for a 25 inch scale (635 mm)", () => {
+    const positions = calculateAllFretPositions(635, 22);
+
+    expect(positions).toHaveLength(scale25in.length);
+
+    scale25in.forEach((expected, index) => {
+      expect(positions[index].absolute).toBeCloseTo(
+        expected.absolute,
+        5
+      );
+
+      expect(positions[index].relative).toBeCloseTo(
+        expected.relative,
+        5
+      );
+    });
   });
 });
