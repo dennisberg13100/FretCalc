@@ -1,31 +1,46 @@
 import { useLocalSearchParams } from "expo-router"
-import { Text } from "react-native"
+import { FlatList, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { globalStyles } from "../../styles/global"
+import ResultsHeader from "@/components/ResultsHeader"
+import { calculateAllFretPositions } from "@/utils/fretCalculator"
+import { resultStyles } from "../../styles/result"
 
 export default function Results() {
-    const { scaleLenght, fretCount, precision } = 
+    const { scaleLength, fretCount, precision } = 
         useLocalSearchParams<{
-            scaleLenght: string
+            scaleLength: string
             fretCount: string
             precision: string
         }>()
-    
-    console.log("Comprimento da escala: ", scaleLenght)
-    console.log("Número de trastes: ", fretCount)
-    console.log("Precisão: ", precision)
+
+    const scaleLengthNumber = Number(scaleLength);
+    const fretCountNumber = Number(fretCount);
+    const precisionNumber = Number(precision);
+    const positions = calculateAllFretPositions(scaleLengthNumber, fretCountNumber)
+
+    console.log(positions)
 
     return (
         <SafeAreaView style = {globalStyles.container}>
-            <Text style = {globalStyles.subtitle}>
-                Comprimento da escala: {scaleLenght}
-            </Text>
-            <Text style = {globalStyles.subtitle}>
-                Número de trastes: {fretCount}
-            </Text>
-            <Text style = {globalStyles.subtitle}>
-                Precisão: {precision}
-            </Text>
+            <ResultsHeader 
+                scaleLenght = {scaleLengthNumber}
+                fretCount = {fretCountNumber}
+                precision = {precisionNumber}
+            /> 
+            <FlatList
+                data={positions}
+                keyExtractor={(_, index) => index.toString()}
+                renderItem= {({item, index}) => (
+                    <View style = {resultStyles.listCard}>
+                        <Text>{index+1}</Text>
+                        <Text>{Math.round(item.absolute / precisionNumber) * precisionNumber}</Text>
+                        <Text>{Math.round(item.relative / precisionNumber) * precisionNumber}</Text>
+                    </View>
+                ) }
+
+            />
+            
         </SafeAreaView>
     )
 }

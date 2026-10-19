@@ -6,19 +6,19 @@ import { router } from "expo-router"
 
 export default function Index() {
 
-  const [ scaleLenght, setScaleLangth ] = useState<string>()
+  const [ scaleLength, setScaleLangth ] = useState<string>()
   const [ fretCount, setFretCount ] = useState<string>()
   const [ precision, setPrecision ] = useState(0.1)
   const [ incompleteFormAlert, setInclompleteFomrAlert ] = useState<boolean>(false)
   const precisionOptions = [0.5, 0.25, 0.1, 0.01]
 
 function handleCalculate() {
-  if (scaleLenght && fretCount) {
+  if (scaleLength && fretCount) {
     setInclompleteFomrAlert(false)
     router.push({
       pathname: "./results",
       params: {
-        scaleLenght: scaleLenght,
+        scaleLength: scaleLength,
         fretCount: fretCount,
         precision: precision.toString(),
       },
@@ -51,7 +51,7 @@ function handleCalculate() {
       </Text>
       <TextInput 
         style = {globalStyles.input}
-        value = {scaleLenght}
+        value = {scaleLength}
         onChangeText = {setScaleLangth}
         keyboardType = "decimal-pad"
         placeholder = "Ex. : 647."

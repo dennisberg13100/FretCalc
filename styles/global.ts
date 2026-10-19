@@ -4,12 +4,12 @@ import { colors } from "./colors"
 export const globalStyles = StyleSheet.create({
     container: {
         flex: 1, 
-        alignItems: "center",
         padding: 20,
     },
     title: {
         fontSize: 50, 
         fontWeight: "bold",
+        textAlign: "center",
         color: colors.primary
     },
     subtitle: {
